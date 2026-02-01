@@ -1,11 +1,13 @@
 # PCI-DSS Compliance Implementation: Cloud Infrastructure Security
 
+[PCI DSS](./PCIDSS.png)
+
 ## 🔒 Project Overview
 
 Led the infrastructure security and DevOps implementation for achieving **PCI-DSS v3.2.1/v4.0 compliance** for a payment processing platform. This project involved architecting, implementing, and hardening AWS cloud infrastructure to meet stringent Payment Card Industry Data Security Standards, ensuring the secure handling of cardholder data across the entire technology stack.
 
-**Duration:** [Your Timeline]  
-**Role:** Cloud Security & DevOps Engineer  
+
+**Role:** DevSecOps Engineer  
 **Compliance Framework:** PCI-DSS (Payment Card Industry Data Security Standard)
 
 ---
@@ -15,10 +17,11 @@ Led the infrastructure security and DevOps implementation for achieving **PCI-DS
 The organization needed to achieve PCI-DSS certification to legally process payment card transactions. The existing infrastructure had several critical gaps:
 
 - **Network Security Deficiencies:** Inadequate network segmentation and firewall rule documentation
-- **Vulnerability Management:** Outdated system components (MySQL 5.7, CentOS 7.9) with known security vulnerabilities
+- **Vulnerability Management:** Outdated system components with known security vulnerabilities
 - **Access Control Gaps:** Insufficient IAM password policies and access management controls
 - **Security Monitoring:** Lack of comprehensive vulnerability scanning and intrusion detection systems
 - **Application Security:** High and medium severity vulnerabilities in web applications requiring remediation
+- **SIEM & Logging:** Absence of centralized log management and security event correlation for detecting and responding to security incidents
 
 The challenge was to design and implement a secure, compliant cloud infrastructure while maintaining system availability and performance.
 
@@ -44,7 +47,6 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 
 ### Security & Compliance Tools
 - **Vulnerability Scanning:** AWS Inspector, third-party penetration testing
-- **Antivirus:** ClamAV (open-source solution for Linux environments)
 - **Security Monitoring:** AWS Security Hub, CloudTrail logging
 - **Compliance Frameworks:** PCI-DSS v3.2.1/v4.0
 
@@ -74,8 +76,8 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 ### 2. Secure System Configuration (Requirement 2)
 
 **System Hardening & Legacy System Migration**
-- Executed migration from obsolete MySQL 5.7 to MySQL 8.0 on RDS
-- Upgraded CentOS 7.9 instances to CentOS Stream 9/RHEL 9
+- Executed migration from obsolete Database versions to updated ones
+- Upgraded OS versions
 - Implemented hardened AMIs (Amazon Machine Images) with security baselines
 - Applied CIS (Center for Internet Security) benchmarks for system configuration
 - Removed or disabled unnecessary services and protocols
@@ -83,12 +85,7 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 ### 3. Access Control & Authentication (Requirement 8)
 
 **Control 8.3.6 - Password Policy Implementation**
-- Configured robust AWS IAM password policies meeting PCI-DSS requirements:
-  - Minimum 12-character password length
-  - Password complexity requirements (uppercase, lowercase, numbers, special characters)
-  - Password history enforcement (prevent reuse of last 24 passwords)
-  - Maximum password age (90 days) with forced rotation
-  - Account lockout after failed login attempts
+- Configured robust AWS IAM password policies meeting PCI-DSS requirements
 - Implemented multi-factor authentication (MFA) for privileged access
 - Established password management procedures and documentation
 
@@ -104,38 +101,6 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 - Conducted post-remediation validation and re-testing
 - Achieved clean penetration test report for compliance certification
 
-### 5. Infrastructure Architecture
-
-**VPC Design:**
-```
-┌─────────────────────────────────────────────────────────┐
-│                    AWS VPC (10.0.0.0/16)                │
-│                                                         │
-│  ┌──────────────────────┐  ┌──────────────────────┐   │
-│  │   Public Subnet      │  │   Public Subnet      │   │
-│  │   (10.0.1.0/24)      │  │   (10.0.2.0/24)      │   │
-│  │   - ALB              │  │   - ALB              │   │
-│  │   - NAT Gateway      │  │   - NAT Gateway      │   │
-│  └──────────────────────┘  └──────────────────────┘   │
-│                                                         │
-│  ┌──────────────────────┐  ┌──────────────────────┐   │
-│  │   Private Subnet     │  │   Private Subnet     │   │
-│  │   (10.0.10.0/24)     │  │   (10.0.11.0/24)     │   │
-│  │   - App Servers      │  │   - App Servers      │   │
-│  └──────────────────────┘  └──────────────────────┘   │
-│                                                         │
-│  ┌──────────────────────┐  ┌──────────────────────┐   │
-│  │   Database Subnet    │  │   Database Subnet    │   │
-│  │   (10.0.20.0/24)     │  │   (10.0.21.0/24)     │   │
-│  │   - RDS MySQL        │  │   - RDS MySQL        │   │
-│  └──────────────────────┘  └──────────────────────┘   │
-│                                                         │
-└─────────────────────────────────────────────────────────┘
-                           │
-                    Cloudflare WAF
-                           │
-                      Internet Traffic
-```
 
 **Security Layers:**
 - Cloudflare proxy for DDoS protection and WAF
@@ -155,8 +120,8 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 - Control 1.5.1: Anti-malware protection deployed across all systems
 
 ✅ **Requirement 2: Apply secure configurations**
-- Migrated from obsolete MySQL 5.7 → MySQL 8.0
-- Upgraded CentOS 7.9 → CentOS Stream 9
+- Migrated from obsolete Database versions
+- Upgraded OS versions
 - Applied security hardening baselines to all systems
 
 ✅ **Requirement 8: Identify users and authenticate access**
@@ -179,19 +144,10 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 📋 Comprehensive network security documentation  
 🔐 Hardened AWS infrastructure meeting PCI-DSS requirements  
 📊 Security monitoring and logging infrastructure  
-🛡️ Multi-layer security architecture (Cloudflare → ALB → Private Subnets)  
+🛡️ Multi-layer security architecture 
 📝 Security policies and standard operating procedures  
 ✅ Clean penetration test and vulnerability assessment reports  
 
----
-
-## 🎓 Key Learnings
-
-- **Compliance as Code:** Automated compliance checks reduce manual effort and human error
-- **Defense in Depth:** Multiple security layers provide better protection than single controls
-- **Documentation is Critical:** Proper evidence collection and documentation are essential for audit success
-- **Continuous Monitoring:** Real-time security monitoring helps identify issues before they become problems
-- **Collaboration:** Working with auditors, developers, and stakeholders is key to successful compliance
 
 ---
 
@@ -200,19 +156,3 @@ The challenge was to design and implement a secure, compliant cloud infrastructu
 This documentation provides a high-level overview of security implementations without revealing sensitive organizational details, specific IP addresses, credentials, or proprietary configurations. All examples are generalized for educational purposes.
 
 ---
-
-## 📬 Contact
-
-**[Your Name]**  
-Cloud Security & DevOps Engineer  
-[Your LinkedIn] | [Your Email] | [Your Portfolio]
-
----
-
-## 📄 License
-
-This documentation is provided for portfolio and educational purposes. Implementation details are anonymized to protect organizational confidentiality.
-
----
-
-*This project demonstrates expertise in cloud security, compliance frameworks, infrastructure hardening, and enterprise-grade AWS architecture.*
