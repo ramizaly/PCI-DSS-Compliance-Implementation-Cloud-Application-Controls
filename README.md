@@ -1,6 +1,6 @@
 # PCI-DSS Compliance Implementation: Cloud Infrastructure Security
 
-[PCI DSS](./PCIDSS.png)
+![PCI DSS](./PCIDSS.png)
 
 ## 🔒 Project Overview
 
